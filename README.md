@@ -1,6 +1,6 @@
 # machado93
 
-Clone every page of a website **you own or are authorized to copy**, then host the copy on your own machine or VPS to see how it looks.
+Clone every page of any website you point it at, then host the copy on your own machine or VPS to see how it looks.
 
 *Português: veja [README.pt-BR.md](README.pt-BR.md).*
 
@@ -15,7 +15,7 @@ Most cloners do one thing well. `machado93` combines the useful ideas of the bes
 
 Run one or several in the same pass, then `serve` the result behind a password.
 
-> **robots.txt:** the built-in `browser` engine and `httrack` (`-s2`) obey it. The `singlefile` engine does **not** read `robots.txt`, and Browsertrix has its own scope rules, so use those two only on sites you own or have permission to copy.
+> **robots.txt** is not enforced by default. Add `--respect-robots` to make the built-in `browser` engine and `httrack` obey it (the `singlefile` engine never reads it, and Browsertrix has its own scope rules).
 
 ## Quick start
 
@@ -40,7 +40,7 @@ Each engine writes to its own folder (`browser/`, `httrack/`, `singlefile/`) so 
 
 ## What the built-in `browser` engine does
 
-1. Resolves redirects (http→https, apex→www) and reads `robots.txt` and `sitemap.xml`.
+1. Resolves redirects (http→https, apex→www) and reads `sitemap.xml` (and `robots.txt`, to find sitemaps and, with `--respect-robots`, to obey it).
 2. Opens each page in a headless browser, **runs the JavaScript**, auto-scrolls to trigger lazy loading, and records every network response (CSS, JS, images, fonts, ...).
 3. Crawls same-site links breadth-first, in parallel, with a politeness delay.
 4. Fetches anything the browser did not hand over (CSS `url()` / `@import` chains, lazy images, linked files).
@@ -54,7 +54,7 @@ Each engine writes to its own folder (`browser/`, `httrack/`, `singlefile/`) so 
 --max-pages 200   --max-depth 5   --concurrency 3   --delay 250
 --scripts strip|keep       strip (default) = static snapshot of the rendered page; keep = keep the site's JS
 --include-subdomains       --include <regex>   --exclude <regex>
---screenshots              --browser <path>    --ignore-robots (only for your own sites)
+--screenshots              --browser <path>    --respect-robots
 ```
 
 ### Known limitations (v0.1)
@@ -75,9 +75,9 @@ Put Caddy or nginx in front for HTTPS: see [`deploy/`](deploy) (`Caddyfile.examp
 The server refuses a public bind without `--auth`, blocks path traversal, and sends `X-Robots-Tag: noindex`.
 Basic auth is not encrypted on its own, so use HTTPS for anything beyond localhost.
 
-## Responsible use
+## Legal
 
-Only clone sites you own or have permission to copy, respect `robots.txt` (default) and each site's terms, and never use a clone to impersonate another site or collect credentials. See [SECURITY.md](SECURITY.md).
+Copyright and each site's terms of use are your responsibility.
 
 ## Development
 

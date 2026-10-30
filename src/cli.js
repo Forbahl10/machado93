@@ -6,7 +6,7 @@ import { buildReport } from './report.js';
 import { resolveSiteDir, startServer } from './serve.js';
 import { findBrowser, findTool } from './util/browser.js';
 
-const HELP = `machado93 - clone every page of a website you own or are authorized to copy, then host it locally.
+const HELP = `machado93 - clone every page of a website, then host the copy locally.
 
 Usage
   machado93 clone <url> [options]     crawl + save a site
@@ -27,7 +27,7 @@ clone options
   --exclude <regex>       skip matching URLs (repeatable)
   --screenshots           save a full-page screenshot of every page
   --browser <path>        Chromium/Brave/Chrome executable (or set MACHADO93_BROWSER)
-  --ignore-robots         do not obey robots.txt (only for sites you own / have permission for)
+  --respect-robots        obey robots.txt (off by default)
   --allow-private         allow requests to private/loopback addresses (auto-enabled if the target is private)
 
 serve options
@@ -35,8 +35,7 @@ serve options
   --host <addr>           default 127.0.0.1
   --auth <user:password>  HTTP basic auth (required when --host is not loopback)
   --allow-public          allow a public bind without auth (not recommended)
-
-Only copy sites you own or have explicit permission to copy. Do not use clones to impersonate a site.`;
+`;
 
 const arr = (v) => (Array.isArray(v) ? v : v ? [v] : []);
 
@@ -53,7 +52,7 @@ export async function main(argv) {
         'max-pages': { type: 'string' }, 'max-depth': { type: 'string' }, concurrency: { type: 'string' },
         delay: { type: 'string' }, scripts: { type: 'string' }, 'include-subdomains': { type: 'boolean' },
         include: { type: 'string', multiple: true }, exclude: { type: 'string', multiple: true },
-        screenshots: { type: 'boolean' }, browser: { type: 'string' }, 'ignore-robots': { type: 'boolean' },
+        screenshots: { type: 'boolean' }, browser: { type: 'string' }, 'respect-robots': { type: 'boolean' }, 'ignore-robots': { type: 'boolean' },
         'allow-private': { type: 'boolean' }, 'no-sandbox': { type: 'boolean' }
       }
     });
@@ -75,7 +74,7 @@ export async function main(argv) {
       include: arr(values.include),
       exclude: arr(values.exclude),
       screenshots: !!values.screenshots,
-      respectRobots: !values['ignore-robots'],
+      respectRobots: !!values['respect-robots'] && !values['ignore-robots'],
       allowPrivate: !!values['allow-private'],
       noSandbox: !!values['no-sandbox']
     };

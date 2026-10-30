@@ -1,6 +1,6 @@
 # machado93
 
-Clona todas as páginas de um site **que é seu ou que você tem autorização para copiar** e hospeda a cópia no seu computador ou na sua VPS, para você ver como ficou.
+Clona todas as páginas de qualquer site que você indicar e hospeda a cópia no seu computador ou na sua VPS, para você ver como ficou.
 
 *English: [README.md](README.md).*
 
@@ -13,7 +13,7 @@ Clona todas as páginas de um site **que é seu ou que você tem autorização p
 | **Um .html autocontido** por página | `singlefile` (opcional) | SingleFile |
 | **Arquivo WARC/WACZ** para preservação | `browsertrix` (opcional, Docker) | Browsertrix Crawler |
 
-> **robots.txt:** os motores `browser` e `httrack` obedecem. O `singlefile` **não** lê o `robots.txt`; use-o só em sites seus ou com permissão.
+> **robots.txt** não é obedecido por padrão. Use `--respect-robots` para os motores `browser` e `httrack` o obedecerem (o `singlefile` nunca o lê).
 
 ## Uso rápido
 
@@ -36,9 +36,9 @@ node bin/machado93.js serve /srv/clones/current --host 127.0.0.1 --port 8080 --a
 
 Coloque Caddy ou nginx na frente para ter HTTPS (exemplos em [`deploy/`](deploy)). O servidor recusa abrir para a internet sem senha e envia `noindex`.
 
-## Uso responsável
+## Aviso legal
 
-Copie apenas sites seus ou com permissão. O `robots.txt` é obedecido por padrão. Nunca use uma cópia para se passar por outro site ou coletar senhas. Veja [SECURITY.md](SECURITY.md).
+Direitos autorais e os termos de uso de cada site são responsabilidade sua.
 
 ## Limitações da v0.1
 

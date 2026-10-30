@@ -17,7 +17,3 @@ machado93 drives a real browser against **untrusted websites**. Treat every craw
 - Default `--scripts strip` removes the site's JavaScript from the copy, which also removes most active content.
   With `--scripts keep`, the clone runs the original site's scripts: only host that on a private, authenticated address.
 - Cloned pages can contain forms, trackers and third-party embeds. Review before sharing a clone with anyone.
-
-## Responsible use
-Only copy sites you own or have permission to copy, and obey `robots.txt` (default). Do not use clones to impersonate
-another site or collect credentials.

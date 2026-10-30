@@ -23,7 +23,7 @@ export async function cloneWithHttrack(opts, log = console.log) {
   const bin = findTool('httrack');
   if (!bin) throw new Error('httrack not found. Install it from https://www.httrack.com/ (macOS: HTTrack.app) and put `httrack` on PATH.');
   await fs.mkdir(opts.outDir, { recursive: true });
-  const args = [opts.url, '-O', opts.outDir, `-r${opts.maxDepth ?? 5}`, `-c${opts.concurrency ?? 4}`, opts.respectRobots === false ? '-s0' : '-s2', '-a', '-q'];
+  const args = [opts.url, '-O', opts.outDir, `-r${opts.maxDepth ?? 5}`, `-c${opts.concurrency ?? 4}`, opts.respectRobots ? '-s2' : '-s0', '-a', '-q'];
   await run(bin, args, { log });
   return { engine: 'httrack', outDir: opts.outDir };
 }

@@ -19,7 +19,7 @@ export const DEFAULTS = {
   maxAssetBytes: 25 * 1024 * 1024,
   scripts: 'strip',
   includeSubdomains: false,
-  respectRobots: true,
+  respectRobots: false,
   screenshots: false,
   allowPrivate: false,
   include: [],
@@ -107,9 +107,9 @@ export async function cloneWithBrowser(userOptions, log = console.log) {
     state.assets.set(url, { url, local, contentType, size: body.length });
   };
 
-  // robots.txt
+  // robots.txt is always read (for Sitemap: lines) but only enforced with --respect-robots.
   let robots = null;
-  if (opts.respectRobots) {
+  {
     try {
       const res = await fetch(`${rootOrigin}/robots.txt`, { headers: { 'user-agent': ua }, signal: AbortSignal.timeout(15000) });
       if (res.ok) robots = robotsParser(`${rootOrigin}/robots.txt`, await res.text());
@@ -117,10 +117,10 @@ export async function cloneWithBrowser(userOptions, log = console.log) {
       /* no robots.txt */
     }
   }
-  const robotsAllows = (url) => !robots || robots.isAllowed(url, ua) !== false;
-  const crawlDelay = Math.max(opts.delayMs, (robots?.getCrawlDelay(ua) || 0) * 1000);
+  const robotsAllows = (url) => !opts.respectRobots || !robots || robots.isAllowed(url, ua) !== false;
+  const crawlDelay = Math.max(opts.delayMs, opts.respectRobots ? (robots?.getCrawlDelay(ua) || 0) * 1000 : 0);
   if (!robotsAllows(rootUrl)) {
-    throw new Error(`robots.txt disallows ${rootUrl}. Re-run with --ignore-robots only if you own the site or have permission.`);
+    throw new Error(`robots.txt disallows ${rootUrl} (checked because --respect-robots is on).`);
   }
 
   // Queue, seeded with the start URL and any sitemap entries.

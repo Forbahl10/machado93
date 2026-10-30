@@ -11,11 +11,11 @@ import { startFixture } from './fixture.js';
 
 const skip = findBrowser() ? false : 'no Chromium-based browser available';
 
-test('clones a JS-rendered site, rewrites everything, respects robots.txt, and the copy works offline', { skip, timeout: 120000 }, async () => {
+test('clones a JS-rendered site, rewrites everything, obeys robots.txt with --respect-robots, and the copy works offline', { skip, timeout: 120000 }, async () => {
   const fixture = await startFixture();
   const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sc-e2e-'));
   try {
-    const manifest = await cloneWithBrowser({ url: `http://127.0.0.1:${fixture.port}/`, outDir, delayMs: 0, maxDepth: 3, noSandbox: true }, () => {});
+    const manifest = await cloneWithBrowser({ url: `http://127.0.0.1:${fixture.port}/`, outDir, delayMs: 0, maxDepth: 3, noSandbox: true, respectRobots: true }, () => {});
     const site = path.join(outDir, 'site');
     const read = (p) => fs.readFileSync(path.join(site, p), 'utf8');
 
@@ -58,6 +58,18 @@ test('clones a JS-rendered site, rewrites everything, respects robots.txt, and t
 
     const { summary } = await buildReport(outDir);
     assert.equal(summary.pages, 4);
+  } finally {
+    await fixture.close();
+  }
+});
+
+test('robots.txt is not enforced by default', { skip, timeout: 120000 }, async () => {
+  const fixture = await startFixture();
+  const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sc-e2e-open-'));
+  try {
+    const manifest = await cloneWithBrowser({ url: `http://127.0.0.1:${fixture.port}/`, outDir, delayMs: 0, maxDepth: 2, noSandbox: true }, () => {});
+    assert.equal(fixture.requested.includes('/private-area'), true);
+    assert.equal(manifest.pages.some((p) => p.local === 'private-area/index.html'), true);
   } finally {
     await fixture.close();
   }
