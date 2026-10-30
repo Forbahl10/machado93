@@ -6,13 +6,13 @@ import { buildReport } from './report.js';
 import { resolveSiteDir, startServer } from './serve.js';
 import { findBrowser, findTool } from './util/browser.js';
 
-const HELP = `sitecloner - clone every page of a website you own or are authorized to copy, then host it locally.
+const HELP = `machado93 - clone every page of a website you own or are authorized to copy, then host it locally.
 
 Usage
-  sitecloner clone <url> [options]     crawl + save a site
-  sitecloner serve <dir> [options]     host a clone (password protected, not indexed)
-  sitecloner report <dir>              write REPORT.md for a clone
-  sitecloner doctor                    check browser and optional engines
+  machado93 clone <url> [options]     crawl + save a site
+  machado93 serve <dir> [options]     host a clone (password protected, not indexed)
+  machado93 report <dir>              write REPORT.md for a clone
+  machado93 doctor                    check browser and optional engines
 
 clone options
   --out <dir>             output folder (default: ./clones/<host>-<timestamp>)
@@ -26,7 +26,7 @@ clone options
   --include <regex>       only crawl matching URLs (repeatable)
   --exclude <regex>       skip matching URLs (repeatable)
   --screenshots           save a full-page screenshot of every page
-  --browser <path>        Chromium/Brave/Chrome executable (or set SITECLONER_BROWSER)
+  --browser <path>        Chromium/Brave/Chrome executable (or set MACHADO93_BROWSER)
   --ignore-robots         do not obey robots.txt (only for sites you own / have permission for)
   --allow-private         allow requests to private/loopback addresses (auto-enabled if the target is private)
 
@@ -58,7 +58,7 @@ export async function main(argv) {
       }
     });
     const url = positionals[0];
-    if (!url) throw new Error('Missing URL. Example: sitecloner clone https://example.com');
+    if (!url) throw new Error('Missing URL. Example: machado93 clone https://example.com');
     if (values.scripts && !['strip', 'keep'].includes(values.scripts)) throw new Error('--scripts must be strip or keep');
     const host = new URL(url).hostname.replace(/[^A-Za-z0-9.-]/g, '_');
     const base = path.resolve(values.out || path.join('clones', `${host}-${new Date().toISOString().replace(/[:.]/g, '-')}`));
@@ -93,7 +93,7 @@ export async function main(argv) {
       }
     }
     console.log(`\nOutput: ${base}`);
-    console.log(`View it:  sitecloner serve ${JSON.stringify(base)}`);
+    console.log(`View it:  machado93 serve ${JSON.stringify(base)}`);
     if (failed === engines.length) process.exitCode = 1;
     return;
   }
@@ -104,7 +104,7 @@ export async function main(argv) {
       allowPositionals: true,
       options: { port: { type: 'string' }, host: { type: 'string' }, auth: { type: 'string' }, 'allow-public': { type: 'boolean' } }
     });
-    if (!positionals[0]) throw new Error('Missing directory. Example: sitecloner serve ./clones/example.com-...');
+    if (!positionals[0]) throw new Error('Missing directory. Example: machado93 serve ./clones/example.com-...');
     if (values.auth && !values.auth.includes(':')) throw new Error('--auth must look like user:password');
     const host = values.host || '127.0.0.1';
     const port = Number(values.port || 8080);
@@ -123,12 +123,12 @@ export async function main(argv) {
   if (command === 'doctor') {
     const show = (name, value, hint) => console.log(`${value ? 'ok     ' : 'missing'} ${name}${value ? `  ${value}` : `  -> ${hint}`}`);
     console.log(`node    ${process.version}`);
-    show('browser (required for engine "browser")', findBrowser(), 'install Brave/Chrome/Chromium or set SITECLONER_BROWSER');
+    show('browser (required for engine "browser")', findBrowser(), 'install Brave/Chrome/Chromium or set MACHADO93_BROWSER');
     show('httrack (optional)', findTool('httrack'), 'https://www.httrack.com/');
     show('single-file (optional)', findTool('single-file'), 'npm install -g single-file-cli');
     show('docker (optional, for browsertrix)', findTool('docker'), 'https://docs.docker.com/get-docker/');
     return;
   }
 
-  throw new Error(`Unknown command "${command}". Run: sitecloner help`);
+  throw new Error(`Unknown command "${command}". Run: machado93 help`);
 }

@@ -1,10 +1,10 @@
-# sitecloner
+# machado93
 
 Clone every page of a website **you own or are authorized to copy**, then host the copy on your own machine or VPS to see how it looks.
 
 *Português: veja [README.pt-BR.md](README.pt-BR.md).*
 
-Most cloners do one thing well. `sitecloner` combines the useful ideas of the best ones in a single command:
+Most cloners do one thing well. `machado93` combines the useful ideas of the best ones in a single command:
 
 | You need | Engine | Inspired by |
 |---|---|---|
@@ -21,19 +21,19 @@ Run one or several in the same pass, then `serve` the result behind a password.
 
 ```bash
 npm install                      # Node >= 20; needs Brave, Chrome or Chromium installed
-node bin/sitecloner.js doctor    # checks your browser and optional engines
+node bin/machado93.js doctor    # checks your browser and optional engines
 
-node bin/sitecloner.js clone https://your-site.example --max-pages 100
-node bin/sitecloner.js serve clones/your-site.example-...   # http://127.0.0.1:8080
-node bin/sitecloner.js report clones/your-site.example-...  # REPORT.md
+node bin/machado93.js clone https://your-site.example --max-pages 100
+node bin/machado93.js serve clones/your-site.example-...   # http://127.0.0.1:8080
+node bin/machado93.js report clones/your-site.example-...  # REPORT.md
 ```
 
-Install globally with `npm link` to get the `sitecloner` command.
+Install globally with `npm link` to get the `machado93` command.
 
 ### Several engines at once
 
 ```bash
-sitecloner clone https://your-site.example --engines browser,httrack,singlefile
+machado93 clone https://your-site.example --engines browser,httrack,singlefile
 ```
 
 Each engine writes to its own folder (`browser/`, `httrack/`, `singlefile/`) so you can compare results.
@@ -68,10 +68,10 @@ Each engine writes to its own folder (`browser/`, `httrack/`, `singlefile/`) so 
 
 ```bash
 # on the VPS
-node bin/sitecloner.js serve /srv/clones/current --host 127.0.0.1 --port 8080 --auth jota:strong-password
+node bin/machado93.js serve /srv/clones/current --host 127.0.0.1 --port 8080 --auth jota:strong-password
 ```
 
-Put Caddy or nginx in front for HTTPS: see [`deploy/`](deploy) (`Caddyfile.example`, `nginx.conf.example`, `sitecloner-serve.service`).
+Put Caddy or nginx in front for HTTPS: see [`deploy/`](deploy) (`Caddyfile.example`, `nginx.conf.example`, `machado93-serve.service`).
 The server refuses a public bind without `--auth`, blocks path traversal, and sends `X-Robots-Tag: noindex`.
 Basic auth is not encrypted on its own, so use HTTPS for anything beyond localhost.
 

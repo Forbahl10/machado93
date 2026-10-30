@@ -11,9 +11,9 @@ const MAC_APPS = [
 ];
 const LINUX_BINS = ['brave-browser', 'google-chrome', 'google-chrome-stable', 'chromium', 'chromium-browser', 'microsoft-edge'];
 
-/** Finds a Chromium-family browser. Order: explicit path, SITECLONER_BROWSER, then well-known locations. */
+/** Finds a Chromium-family browser. Order: explicit path, MACHADO93_BROWSER, then well-known locations. */
 export function findBrowser(explicit) {
-  const candidates = [explicit, process.env.SITECLONER_BROWSER].filter(Boolean);
+  const candidates = [explicit, process.env.MACHADO93_BROWSER].filter(Boolean);
   if (process.platform === 'darwin') {
     for (const app of MAC_APPS) {
       candidates.push(path.join('/Applications', app), path.join(os.homedir(), 'Applications', app));

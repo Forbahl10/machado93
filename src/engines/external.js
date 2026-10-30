@@ -60,7 +60,7 @@ export async function cloneWithBrowsertrix(opts, log = console.log) {
   await fs.mkdir(crawls, { recursive: true });
   const args = [
     'run', '--rm', '-v', `${crawls}:/crawls`, 'webrecorder/browsertrix-crawler', 'crawl',
-    '--url', opts.url, '--generateWACZ', '--collection', 'sitecloner',
+    '--url', opts.url, '--generateWACZ', '--collection', 'machado93',
     '--scopeType', opts.includeSubdomains ? 'domain' : 'prefix',
     '--limit', String(opts.maxPages ?? 200), '--workers', String(Math.min(opts.concurrency ?? 2, 4))
   ];

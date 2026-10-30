@@ -1,10 +1,10 @@
 {
-  "name": "sitecloner",
+  "name": "machado93",
   "version": "0.1.0",
   "description": "Clone every page of a website you own or are authorized to copy, and host the copy locally. Combines a JS-rendering crawler with optional HTTrack, SingleFile and Browsertrix engines.",
   "type": "module",
   "bin": {
-    "sitecloner": "bin/sitecloner.js"
+    "machado93": "bin/machado93.js"
   },
   "main": "src/index.js",
   "engines": {
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "node --test test/",
-    "doctor": "node bin/sitecloner.js doctor"
+    "doctor": "node bin/machado93.js doctor"
   },
   "keywords": [
     "website-cloner",

@@ -7,7 +7,7 @@ import { rewriteCss, rewriteHtml } from '../util/rewrite.js';
 import { findBrowser } from '../util/browser.js';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const DEFAULT_UA = 'Mozilla/5.0 (compatible; sitecloner/0.1; +https://github.com/Forbahl10/sitecloner)';
+const DEFAULT_UA = 'Mozilla/5.0 (compatible; machado93/0.1; +https://github.com/Forbahl10/machado93)';
 
 export const DEFAULTS = {
   maxPages: 200,
@@ -158,7 +158,7 @@ export async function cloneWithBrowser(userOptions, log = console.log) {
   }
 
   const executablePath = findBrowser(opts.browserPath);
-  if (!executablePath) throw new Error('No Chromium-based browser found. Install Brave/Chrome/Chromium or set SITECLONER_BROWSER.');
+  if (!executablePath) throw new Error('No Chromium-based browser found. Install Brave/Chrome/Chromium or set MACHADO93_BROWSER.');
   const args = ['--disable-dev-shm-usage', '--mute-audio'];
   if (process.getuid?.() === 0 || opts.noSandbox) args.push('--no-sandbox');
   const browser = await puppeteer.launch({ executablePath, headless: true, args });
@@ -383,7 +383,7 @@ export async function cloneWithBrowser(userOptions, log = console.log) {
   await fs.rm(workDir, { recursive: true, force: true });
 
   const manifest = {
-    tool: 'sitecloner',
+    tool: 'machado93',
     version: '0.1.0',
     startedAt,
     finishedAt: new Date().toISOString(),

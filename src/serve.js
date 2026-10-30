@@ -43,7 +43,7 @@ export function createServer({ dir, auth = null }) {
       const header = req.headers.authorization || '';
       const given = header.startsWith('Basic ') ? Buffer.from(header.slice(6), 'base64').toString('utf8') : '';
       if (!timingSafeEqual(digest(given), expected)) {
-        return send(401, 'Authentication required', { 'WWW-Authenticate': 'Basic realm="sitecloner", charset="UTF-8"' });
+        return send(401, 'Authentication required', { 'WWW-Authenticate': 'Basic realm="machado93", charset="UTF-8"' });
       }
     }
     if (req.method !== 'GET' && req.method !== 'HEAD') return send(405, 'Method not allowed', { Allow: 'GET, HEAD' });

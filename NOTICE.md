@@ -1,10 +1,10 @@
 # Third-party tools and credits
 
-sitecloner's own code is original and MIT-licensed. It does **not** copy source code from the projects
+machado93's own code is original and MIT-licensed. It does **not** copy source code from the projects
 below. It borrows their ideas, and optionally runs them as separate programs that you install yourself.
 Because they are executed as external processes (not linked or bundled), their licenses do not apply to this repository.
 
-| Project | What sitecloner takes from it | License | How it is used |
+| Project | What machado93 takes from it | License | How it is used |
 |---|---|---|---|
 | [HTTrack](https://github.com/xroche/httrack) | Mirroring model: relative-link rewriting, robots handling, stay-on-site scope | GPL-3.0 | Optional engine `httrack` (external binary) |
 | [SingleFile](https://github.com/gildas-lormeau/SingleFile) | Self-contained single-file pages; lazy-content handling | AGPL-3.0 | Optional engine `singlefile` (`single-file-cli`) |

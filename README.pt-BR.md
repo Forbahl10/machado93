@@ -1,4 +1,4 @@
-# sitecloner
+# machado93
 
 Clona todas as páginas de um site **que é seu ou que você tem autorização para copiar** e hospeda a cópia no seu computador ou na sua VPS, para você ver como ficou.
 
@@ -19,11 +19,11 @@ Clona todas as páginas de um site **que é seu ou que você tem autorização p
 
 ```bash
 npm install                       # Node >= 20; precisa de Brave, Chrome ou Chromium
-node bin/sitecloner.js doctor     # confere navegador e motores opcionais
+node bin/machado93.js doctor     # confere navegador e motores opcionais
 
-node bin/sitecloner.js clone https://seu-site.com --max-pages 100
-node bin/sitecloner.js serve clones/seu-site.com-...    # http://127.0.0.1:8080
-node bin/sitecloner.js report clones/seu-site.com-...   # REPORT.md
+node bin/machado93.js clone https://seu-site.com --max-pages 100
+node bin/machado93.js serve clones/seu-site.com-...    # http://127.0.0.1:8080
+node bin/machado93.js report clones/seu-site.com-...   # REPORT.md
 ```
 
 Vários motores de uma vez: `--engines browser,httrack,singlefile`.
@@ -31,7 +31,7 @@ Vários motores de uma vez: `--engines browser,httrack,singlefile`.
 ## Na VPS
 
 ```bash
-node bin/sitecloner.js serve /srv/clones/current --host 127.0.0.1 --port 8080 --auth usuario:senha-forte
+node bin/machado93.js serve /srv/clones/current --host 127.0.0.1 --port 8080 --auth usuario:senha-forte
 ```
 
 Coloque Caddy ou nginx na frente para ter HTTPS (exemplos em [`deploy/`](deploy)). O servidor recusa abrir para a internet sem senha e envia `noindex`.
