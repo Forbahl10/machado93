@@ -1,0 +1,10 @@
+# Hosts a clone behind HTTPS + password on your VPS. Replace the domain and the password hash.
+# Generate a hash:  caddy hash-password
+clone.example.com {
+	basic_auth {
+		jota REPLACE_WITH_BCRYPT_HASH
+	}
+	header X-Robots-Tag "noindex, nofollow, noarchive"
+	root * /srv/clones/current/site
+	file_server
+}

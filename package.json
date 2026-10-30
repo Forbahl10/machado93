@@ -1,0 +1,32 @@
+{
+  "name": "sitecloner",
+  "version": "0.1.0",
+  "description": "Clone every page of a website you own or are authorized to copy, and host the copy locally. Combines a JS-rendering crawler with optional HTTrack, SingleFile and Browsertrix engines.",
+  "type": "module",
+  "bin": {
+    "sitecloner": "bin/sitecloner.js"
+  },
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/",
+    "doctor": "node bin/sitecloner.js doctor"
+  },
+  "keywords": [
+    "website-cloner",
+    "web-archive",
+    "crawler",
+    "mirror",
+    "httrack",
+    "singlefile",
+    "puppeteer"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "puppeteer-core": "^25.16.0",
+    "robots-parser": "^3.0.1"
+  }
+}

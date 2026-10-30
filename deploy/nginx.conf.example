@@ -1,0 +1,16 @@
+# Alternative to Caddy. Create the password file with:  htpasswd -c /etc/nginx/.clone_htpasswd jota
+server {
+    listen 443 ssl;
+    server_name clone.example.com;
+    # ssl_certificate / ssl_certificate_key via certbot
+
+    root /srv/clones/current/site;
+    index index.html;
+    auth_basic "Restricted";
+    auth_basic_user_file /etc/nginx/.clone_htpasswd;
+    add_header X-Robots-Tag "noindex, nofollow, noarchive" always;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
